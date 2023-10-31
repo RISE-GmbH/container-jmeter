@@ -18,7 +18,7 @@ clean:
 
 run:
 	@mkdir -p $(REPORT_DIR)
-	docker run --rm --name $(CONTAINER_NAME) -i -v $(PWD):$(PWD) -w $(PWD) $(IMAGE) \
+	podman run --rm --name $(CONTAINER_NAME) -i -v $(PWD):$(PWD) -w $(PWD) $(IMAGE) \
 	-Dlog_level.jmeter=DEBUG \
 	-JTARGET_HOST=${TARGET_HOST} -JTARGET_PORT=${TARGET_PORT} \
 	-JTARGET_PATH=${TARGET_PATH} -JTARGET_KEYWORD=${TARGET_KEYWORD} \
