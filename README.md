@@ -1,38 +1,10 @@
-[![Docker Build](https://github.com/justb4/docker-jmeter/actions/workflows/docker.yml/badge.svg)](https://github.com/justb4/docker-jmeter/actions/workflows/docker.yml)
-[![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
+Original Repository cloned from https://github.com/justb4/docker-jmeter
+Patreon of original author: [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
 
 # docker-jmeter
-## Image on Docker Hub
 
 Docker image for [Apache JMeter](http://jmeter.apache.org).
 This Docker image can be run as the ``jmeter`` command.
-Find Images of this repo on [Docker Hub](https://hub.docker.com/r/justb4/jmeter).
-Starting version 5.4 Docker builds/pushes
-are [executed via GitHub Workflows](.github/workflows/docker.yml).
-
-## Donate
-With **over 10 Million Pulls from DockerHub**, this Docker Image is increasingly popular.
-To support its active maintainance consider making a donation, for example via PayPal:
-
-[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com/biz/fund?id=3QZW9SNGCWBM4)
-
-
-## Security Patches
-As you may have seen in the news, a new zero-day exploit has been reported against the
-popular Log4J2 library which can allow an attacker to remotely execute code.
-The vulnerability has been reported with [CVE-2021-44228](https://nvd.nist.gov/vuln/detail/CVE-2021-44228)
-against the log4j-core jar and has been fixed in Log4J v2.16.0.
-
-JMeter, at least in versions 5 and later uses the vulnerable Log4J versions.
-The good news though is that the vulnerability applies only to remotely accessible Java web-services.
-JMeter is a commandline/GUI tool one runs internally. Still it is good practice to
-patch this problem.
-
-**JMeter has been updated to 5.4.2 for security CVE-2021-45046 & CVE-2021-45046**.
-
-https://jmeter.apache.org/changes.html#Non-functional%20changes
-
-The update to 5.4.2 includes the updated Apache log4j2 to 2.16.0 (from 2.13.3), thanks for PR #51!
 
 ## Building
 
@@ -124,7 +96,7 @@ Contribution by @wilsonmar
 
    The last line in the response should be:
 
-   <tt>Successfully tagged justb4/jmeter:5.5</tt>
+   <tt>Successfully tagged rise/jmeter:5.6</tt>
 
 1. Run the test script:
 
@@ -211,3 +183,4 @@ Thanks to https://github.com/hauptmedia/docker-jmeter
 and https://github.com/hhcordero/docker-jmeter-server for providing
 the Dockerfiles that inspired me.   @wilsonmar for contributing detailed instructions. Others
 that tested/reported after version updates.
+https://github.com/justb4/docker-jmeter was the original source repo
