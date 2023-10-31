@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Test the JMeter Docker image using a trivial test plan.
+# Test the JMeter Container image using a trivial test plan.
 
 # Example for using User Defined Variables with JMeter
 # These will be substituted in JMX test script
