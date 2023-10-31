@@ -1,4 +1,5 @@
-Original Repository cloned from [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
+Original Repository cloned from https://github.com/justb4/docker-jmeter
+Patreon of original author: [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
 
 # docker-jmeter
 
