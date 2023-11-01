@@ -23,6 +23,10 @@ RUN    apk update \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz  \
 	&& mkdir -p /opt  \
 	&& tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
+# pre-load plugins
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/bzm-random-csv-0.8.zip > /tmp/dependencies/bzm-random-csv-0.8.zip \
+	&& unzip -oq /tmp/dependencies/bzm-random-csv-0.8.zip -d ${JMETER_HOME} \
+# cleanup
 	&& rm -rf /tmp/dependencies
 
 # TODO: plugins (later)
