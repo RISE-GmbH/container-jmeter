@@ -26,11 +26,10 @@ RUN    apk update \
 # pre-load plugins
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/bzm-random-csv-0.8.zip > /tmp/dependencies/bzm-random-csv-0.8.zip \
 	&& unzip -oq /tmp/dependencies/bzm-random-csv-0.8.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-autostop-0.2.zip > /tmp/dependencies/jpgc-autostop-0.2.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-autostop-0.2.zip -d ${JMETER_HOME} \
 # cleanup
 	&& rm -rf /tmp/dependencies
-
-# TODO: plugins (later)
-# && unzip -oq "/tmp/dependencies/JMeterPlugins-*.zip" -d $JMETER_HOME
 
 # Set global PATH such that "jmeter" command is found
 ENV PATH $PATH:$JMETER_BIN

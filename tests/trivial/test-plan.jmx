@@ -11,6 +11,47 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="TARGET_HOST" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_HOST</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_HOST,www.rise-world.com)}</stringProp>
+            <stringProp name="Argument.desc">target server domain/IP for testing</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PORT" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_PORT</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_PORT,443)}</stringProp>
+            <stringProp name="Argument.desc">target port on TARGET_HOST for testing</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PATH" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_PATH</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_PATH,/de/aktuelles/)}</stringProp>
+            <stringProp name="Argument.desc">target path on target server</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_KEYWORD" elementType="Argument">
+            <stringProp name="Argument.name">TARGET_KEYWORD</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_KEYWORD,RISE)}</stringProp>
+            <stringProp name="Argument.desc">keyword string present  in repsonse</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="THREADS" elementType="Argument">
+            <stringProp name="Argument.name">THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(THREADS,1)}</stringProp>
+            <stringProp name="Argument.desc">Number of concurrent threads</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TARGET_PROTOCOL" elementType="Argument">
+            <stringProp name="Argument.value">${__P(TARGET_PROTOCOL,https)}</stringProp>
+            <stringProp name="Argument.name">TARGET_PROTOCOL</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">Example using UDV for symbolic names test target and response to test</stringProp>
+      </Arguments>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Scenario 1" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -89,47 +130,6 @@ Connect to 5s</stringProp>
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="TARGET_HOST" elementType="Argument">
-              <stringProp name="Argument.name">TARGET_HOST</stringProp>
-              <stringProp name="Argument.value">${__P(TARGET_HOST,www.rise-world.com)}</stringProp>
-              <stringProp name="Argument.desc">target server domain/IP for testing</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="TARGET_PORT" elementType="Argument">
-              <stringProp name="Argument.name">TARGET_PORT</stringProp>
-              <stringProp name="Argument.value">${__P(TARGET_PORT,443)}</stringProp>
-              <stringProp name="Argument.desc">target port on TARGET_HOST for testing</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="TARGET_PATH" elementType="Argument">
-              <stringProp name="Argument.name">TARGET_PATH</stringProp>
-              <stringProp name="Argument.value">${__P(TARGET_PATH,/de/aktuelles/)}</stringProp>
-              <stringProp name="Argument.desc">target path on target server</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="TARGET_KEYWORD" elementType="Argument">
-              <stringProp name="Argument.name">TARGET_KEYWORD</stringProp>
-              <stringProp name="Argument.value">${__P(TARGET_KEYWORD,RISE)}</stringProp>
-              <stringProp name="Argument.desc">keyword string present  in repsonse</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="THREADS" elementType="Argument">
-              <stringProp name="Argument.name">THREADS</stringProp>
-              <stringProp name="Argument.value">${__P(THREADS,1)}</stringProp>
-              <stringProp name="Argument.desc">Number of concurrent threads</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="TARGET_PROTOCOL" elementType="Argument">
-              <stringProp name="Argument.value">${__P(TARGET_PROTOCOL,https)}</stringProp>
-              <stringProp name="Argument.name">TARGET_PROTOCOL</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-          <stringProp name="TestPlan.comments">Example using UDV for symbolic names test target and response to test</stringProp>
-        </Arguments>
-        <hashTree/>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
