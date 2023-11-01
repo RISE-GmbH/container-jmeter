@@ -4,7 +4,8 @@
 
 NAME="jmeter"
 JMETER_VERSION=${JMETER_VERSION:-"latest"}
-IMAGE="rise/jmeter:${JMETER_VERSION}"
+IMAGE_PREFIX="rise"
+IMAGE="${IMAGE_PREFIX}/jmeter:${JMETER_VERSION}"
 
 # Finally run
 podman run --rm --name ${NAME} -i -v ${PWD}:${PWD} -w ${PWD} ${IMAGE} $@
