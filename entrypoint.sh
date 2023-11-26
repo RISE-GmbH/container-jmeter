@@ -13,6 +13,35 @@ then
     done;
 fi
 
+# prepare provided certificates and generate certificate file
+if [ ! -z "$JMETER_CERTIFICATES" ]
+then
+    for CERT in ${JMETER_CERTIFICATES//,/ }
+    do
+        CERTPATH=$(echo ${CERT} | cut -s -d':' -f1)
+        CERTPASS=$(echo ${CERT} | cut -s -d':' -f2)
+        if [ -z "$CERTPATH" ]
+        then
+            CERTPATH=${CERT}
+        fi
+        echo preparing certificate file "'$CERTPATH'"
+#        echo CERTPATH="$CERTPATH"
+#        echo CERTPASS="$CERTPASS"
+        keytool -importkeystore -srckeystore ${CERTPATH} -srcstoretype PKCS12 -storepass lenserjmeter -srcstorepass ${CERTPASS} -destkeystore ${JMETER_HOME}/keystore.jks -deststoretype JKS -destkeypass "lenserjmeter" -deststorepass "lenserjmeter" -noprompt
+    done
+else
+    # create a pseudo-keystore to facilitate the setting up of the keystor config in jMeter
+    echo generating dummy keystore
+    keytool -genkeypair -alias placeholder -storepass lenserjmeter -keypass lenserjmeter -keystore ${JMETER_HOME}/keystore.jks -deststoretype JKS -destkeypass "lenserjmeter" -dname "CN=RISE, OU=COMPRISE, O=LENSER, L=Vienna, ST=Vienna, C=CA" -noprompt
+fi
+
+# modify jMeter system.properties config file to include the generated keystore
+echo "javax.net.ssl.keyStoreType=JKS" >> ${JMETER_HOME}/bin/system.properties
+echo "javax.net.ssl.keyStore=${JMETER_HOME}/keystore.jks" >> ${JMETER_HOME}/bin/system.properties
+echo "javax.net.ssl.keyStorePassword=lenserjmeter" >> ${JMETER_HOME}/bin/system.properties
+
+echo "https.use.cached.ssl.context=false" >> ${JMETER_HOME}/bin/user.properties
+
 # Execute JMeter command
 set -e
 freeMem=`awk '/MemAvailable/ { print int($2/1024) }' /proc/meminfo`
