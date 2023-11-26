@@ -145,6 +145,24 @@ Contribution by @wilsonmar
    open index.html
    ```
 
+## Certificates
+
+If you need jMeter to be aware of specific certificates, these can be specified by their full path by the environment variable `JMETER_CERTIFICATES`. Multiple certificates can be specified by separating their path with a comma. The format of the certificates needs to be ".p12". A passphrase is specified by the string after the filepath separated by a colon.
+
+Example:
+
+```
+/tmp/certificate1.p12:passphrase123,/tmp/certificate2.p12:passphrase456
+```
+
+In a call this would look like this:
+
+```
+podman run --rm --name jmeter -e JMETER_CERTIFICATES='/tmp/certificate1.p12:passphrase123,/tmp/certificate2.p12:passphrase456' ...
+```
+
+Beware that the certificates path provided must be accessible from within the image - that means, you have to make sure that locally stored certificates are mounted in the container at the appropriate location at runtime.
+
 ## Specifics
 
 The Container image built from the
