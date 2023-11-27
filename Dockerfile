@@ -30,7 +30,9 @@ RUN    apk update \
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-autostop-0.2.zip > /tmp/dependencies/jpgc-autostop.zip \
 	&& unzip -oq /tmp/dependencies/jpgc-autostop.zip -d ${JMETER_HOME} \
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/bzm-parallel-0.11.zip > /tmp/dependencies/bzm-parallel.zip \
-	&& unzip -oq /tmp/dependencies/jpgc-autostop.zip -d ${JMETER_HOME} \
+	&& unzip -oq /tmp/dependencies/bzm-parallel.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip > /tmp/dependencies/jpgc-filterresults.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-filterresults.zip -d ${JMETER_HOME} \
 # cleanup
 	&& rm -rf /tmp/dependencies
 
