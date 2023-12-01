@@ -32,7 +32,7 @@ then
 else
     # create a pseudo-keystore to facilitate the setting up of the keystor config in jMeter
     echo generating dummy keystore
-    keytool -genkeypair -alias placeholder -storepass lenserjmeter -keypass lenserjmeter -keystore ${JMETER_HOME}/keystore.jks -deststoretype JKS -destkeypass "lenserjmeter" -dname "CN=RISE, OU=COMPRISE, O=LENSER, L=Vienna, ST=Vienna, C=CA" -noprompt
+    keytool -genkeypair -keyalg DSA -alias placeholder -storepass lenserjmeter -keypass lenserjmeter -keystore ${JMETER_HOME}/keystore.jks -deststoretype JKS -destkeypass "lenserjmeter" -dname "CN=RISE, OU=COMPRISE, O=LENSER, L=Vienna, ST=Vienna, C=CA" -noprompt
 fi
 
 # modify jMeter system.properties config file to include the generated keystore

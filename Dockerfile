@@ -3,7 +3,8 @@
 FROM alpine:3.18
 
 ARG JMETER_VERSION="5.6"
-ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
+#ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
+ENV JMETER_HOME /opt/apache-jmeter
 ENV JMETER_CUSTOM_PLUGINS_FOLDER /plugins
 ENV	JMETER_BIN	${JMETER_HOME}/bin
 ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
@@ -17,13 +18,14 @@ RUN    apk update \
 	&& apk upgrade \
 	&& apk add ca-certificates \
 	&& update-ca-certificates \
-	&& apk add --update openjdk8-jre tzdata curl unzip bash \
+	&& apk add --update openjdk17-jre tzdata curl unzip bash \
 	&& apk add --no-cache nss \
 	&& rm -rf /var/cache/apk/* \
 	&& mkdir -p /tmp/dependencies  \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz  \
 	&& mkdir -p /opt  \
 	&& tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
+	&& mv /opt/apache-jmeter-${JMETER_VERSION} ${JMETER_HOME} \
 # pre-load plugins
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/bzm-random-csv-0.8.zip > /tmp/dependencies/bzm-random-csv.zip \
 	&& unzip -oq /tmp/dependencies/bzm-random-csv.zip -d ${JMETER_HOME} \
@@ -33,6 +35,12 @@ RUN    apk update \
 	&& unzip -oq /tmp/dependencies/bzm-parallel.zip -d ${JMETER_HOME} \
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip > /tmp/dependencies/jpgc-filterresults.zip \
 	&& unzip -oq /tmp/dependencies/jpgc-filterresults.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-casutg-2.10.zip > /tmp/dependencies/jpgc-casutg.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-casutg.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-tst-2.6.zip > /tmp/dependencies/jpgc-tst.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-tst.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-wsc-0.7.zip > /tmp/dependencies/jpgc-wsc.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-wsc.zip -d ${JMETER_HOME} \
 # cleanup
 	&& rm -rf /tmp/dependencies
 
