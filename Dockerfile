@@ -41,6 +41,8 @@ RUN    apk update \
 	&& unzip -oq /tmp/dependencies/jpgc-tst.zip -d ${JMETER_HOME} \
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-wsc-0.7.zip > /tmp/dependencies/jpgc-wsc.zip \
 	&& unzip -oq /tmp/dependencies/jpgc-wsc.zip -d ${JMETER_HOME} \
+	&& curl -L --silent https://jmeter-plugins.org/files/packages/jpgc-dummy-0.4.zip > /tmp/dependencies/jpgc-dummy.zip \
+	&& unzip -oq /tmp/dependencies/jpgc-dummy.zip -d ${JMETER_HOME} \
 # cleanup
 	&& rm -rf /tmp/dependencies
 
