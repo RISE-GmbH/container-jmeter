@@ -1,24 +1,30 @@
-# inspired by https://github.com/hauptmedia/docker-jmeter  and
-# https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile
+# inspired by https://github.com/hauptmedia/docker-jmeter and
+# https://github.com/hhcordero/docker-jmeter-server/blob/master/Dockerfile and
+# https://github.com/guitarrapc/docker-jmeter-gui/tree/master
 FROM alpine:3.18
 
 ARG JMETER_VERSION="5.6"
-#ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
-ENV JMETER_HOME /opt/apache-jmeter
-ENV JMETER_CUSTOM_PLUGINS_FOLDER /plugins
-ENV	JMETER_BIN	${JMETER_HOME}/bin
-ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
-ENV JMETER_CERTIFICATES=""
-
-# Install extra packages
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
 ARG TZ="Europe/Amsterdam"
-ENV TZ ${TZ}
+ENV TZ=${TZ} \
+    JMETER_HOME=/opt/apache-jmeter \
+    JMETER_CUSTOM_PLUGINS_FOLDER=/plugins \
+    JMETER_BIN=${JMETER_HOME}/bin \
+    JMETER_DOWNLOAD_URL=https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz \
+    JMETER_CERTIFICATES="" \
+    PATH=$PATH:$JMETER_BIN \
+    DISPLAY=":99" \
+    RESOLUTION="1366x768x24" \
+    PASS="root"
+
+STOPSIGNAL SIGKILL
+
+# Install extra packages
 RUN    apk update \
 	&& apk upgrade \
 	&& apk add ca-certificates \
 	&& update-ca-certificates \
-	&& apk add --update openjdk17-jre tzdata curl unzip bash \
+	&& apk add --update openjdk17-jre tzdata curl unzip bash xfce4-terminal xvfb x11vnc xfce4 tini \
 	&& apk add --no-cache nss \
 	&& rm -rf /var/cache/apk/* \
 	&& mkdir -p /tmp/dependencies  \
@@ -26,6 +32,7 @@ RUN    apk update \
 	&& mkdir -p /opt  \
 	&& tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
 	&& mv /opt/apache-jmeter-${JMETER_VERSION} ${JMETER_HOME} \
+    && x11vnc -storepasswd ${PASS} /etc/x11vnc.pass \
 # pre-load plugins
 	&& curl -L --silent https://jmeter-plugins.org/files/packages/bzm-random-csv-0.8.zip > /tmp/dependencies/bzm-random-csv.zip \
 	&& unzip -oq /tmp/dependencies/bzm-random-csv.zip -d ${JMETER_HOME} \
@@ -46,13 +53,10 @@ RUN    apk update \
 # cleanup
 	&& rm -rf /tmp/dependencies
 
-# Set global PATH such that "jmeter" command is found
-ENV PATH $PATH:$JMETER_BIN
+EXPOSE 5900
 
-# Entrypoint has same signature as "jmeter" command
 COPY entrypoint.sh /
 
-WORKDIR	${JMETER_HOME}
+WORKDIR /opt/lenser
 
-RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "-g", "--", "/entrypoint.sh"]

@@ -42,7 +42,7 @@ echo "javax.net.ssl.keyStorePassword=lenserjmeter" >> ${JMETER_HOME}/bin/system.
 
 echo "https.use.cached.ssl.context=false" >> ${JMETER_HOME}/bin/user.properties
 
-# Execute JMeter command
+# calculate JVM heap requirements
 set -e
 freeMem=`awk '/MemAvailable/ { print int($2/1024) }' /proc/meminfo`
 
@@ -52,21 +52,34 @@ freeMem=`awk '/MemAvailable/ { print int($2/1024) }' /proc/meminfo`
 
 export JVM_ARGS="-Xmn${JVM_XMN}m -Xms${JVM_XMS}m -Xmx${JVM_XMX}m"
 
+# Initiate jMeter startup
+
 echo "START Running Jmeter on `date`"
 echo "JVM_ARGS=${JVM_ARGS}"
 echo "jmeter args=$@"
 
-# Keep entrypoint simple: we must pass the standard JMeter arguments
+# we must pass the standard JMeter arguments
 EXTRA_ARGS=-Dlog4j2.formatMsgNoLookups=true
-echo "jmeter ALL ARGS=${EXTRA_ARGS} $@"
-jmeter ${EXTRA_ARGS} $@
+echo "jmeter ALL-ARGS=${EXTRA_ARGS} $@"
+
+rm -f /tmp/.X99-lock && rm -f /var/run/xrdp.pid
+
+# if "-n" as a parameter is not present, then execute as gui
+if [[ $@ != *"-n"* ]]
+then
+    echo "gui mode"
+    # Execute VNC server and run jMeter
+    nohup /usr/bin/Xvfb :${DISPLAY} -screen 0 ${RESOLUTION} -ac +extension GLX +render -noreset && export DISPLAY=${DISPLAY} > /dev/null 2>&1 &
+    nohup startxfce4 > /dev/null 2>&1 &
+    nohup x11vnc -ncache -xkb -noxrecord -noxfixes -noxdamage -display :${DISPLAY} -forever -bg -nopw -rfbport 5900 -rfbauth /etc/x11vnc.pass > /dev/null 2>&1 &
+#    nohup xrdp > /dev/null 2>&1 &
+    jmeter ${EXTRA_ARGS} $@ -Jjmeter.laf=CrossPlatform > /dev/null 2>&1 &
+    echo "started VNC and jMeter, waiting for VPN connection on port 5900"
+    tail -f /dev/null
+else
+    # simple jMeter execution
+    echo "cli mode"
+    jmeter ${EXTRA_ARGS} $@
+fi
 
 echo "END Running Jmeter on `date`"
-
-#     -n \
-#    -t "/tests/${TEST_DIR}/${TEST_PLAN}.jmx" \
-#    -l "/tests/${TEST_DIR}/${TEST_PLAN}.jtl"
-# exec tail -f jmeter.log
-#    -D "java.rmi.server.hostname=${IP}" \
-#    -D "client.rmi.localport=${RMI_PORT}" \
-#  -R $REMOTE_HOSTS

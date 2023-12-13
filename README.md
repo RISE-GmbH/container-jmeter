@@ -1,6 +1,3 @@
-Original Repository cloned from https://github.com/justb4/docker-jmeter
-Patreon of original author: [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
-
 # container-jmeter
 
 Container image for [Apache JMeter](http://jmeter.apache.org).
@@ -8,9 +5,7 @@ This Container image can be run as the ``jmeter`` command.
 
 ## Building
 
-With the script [build.sh](build.sh) the container image can be build
-from the [Dockerfile](Dockerfile) but this is not really necessary as
-you may use your own ``podman build`` commandline.
+With the script [build.sh](build.sh) the container image can be build from the [Dockerfile](Dockerfile) but this is not really necessary as you may use your own ``podman build`` commandline.
 
 See end of this doc for more detailed build/run/test instructions (thanks to @wilsonmar!)
 
@@ -18,7 +13,7 @@ See end of this doc for more detailed build/run/test instructions (thanks to @wi
 
 Build arguments (see [build.sh](build.sh)) with default values if not passed to build:
 
-- **JMETER_VERSION** - JMeter version, default ``5.4``. Use as env variable to build with another version: `export JMETER_VERSION=5.4`
+- **JMETER_VERSION** - JMeter version, default ``5.6``. Use as env variable to build with another version: `export JMETER_VERSION=5.4`
 - **IMAGE_TIMEZONE** - timezone of Container image, default ``"Europe/Amsterdam"``. Use as env variable to build with another timezone: `export IMAGE_TIMEZONE="Europe/Berlin"`
 
 ## Running
@@ -31,12 +26,10 @@ See [test.sh](test.sh) for an example of how to call [run.sh](run.sh).
 
 ## User Defined Variables
 
-This is a standard facility of JMeter: settings in a JMX test script
-may be defined symbolically and substituted at runtime via the commandline.
+This is a standard facility of JMeter: settings in a JMX test script may be defined symbolically and substituted at runtime via the commandline.
 These are called JMeter User Defined Variables or UDVs.
 
-See [test.sh](test.sh) and the [trivial test plan](tests/trivial/test-plan.jmx) for an example of UDVs passed to the Container
-image via [run.sh](run.sh).
+See [test.sh](test.sh) and the [trivial test plan](tests/trivial/test-plan.jmx) for an example of UDVs passed to the Container image via [run.sh](run.sh).
 
 See also: https://www.novatec-gmbh.de/en/blog/how-to-pass-command-line-properties-to-a-jmeter-testplan/
 
@@ -63,7 +56,7 @@ The ${LOCAL_PLUGINS_FOLDER} must have only .jar files. Folders and another file 
 
 ### Configuring the custom JMeter plugins folder location
 
-It is also possible to define an alternate location to the custom JMeter plugins folder. Simply define a environment variable called `JMETER_CUSTOM_PLUGINS_FOLDER` with the desired folder path like in the example bellow:
+It is also possible to define an alternate location to the custom JMeter plugins folder. Simply define a environment variable called `JMETER_CUSTOM_PLUGINS_FOLDER` with the desired folder path like in the example below:
 
 ```sh
 sudo podman run --name ${NAME} -i -e JMETER_CUSTOM_PLUGINS_FOLDER=/jmeter/plugins -v ${LOCAL_PLUGINS_FOLDER}:/jmeter/plugins -v ${LOCAL_JMX_WORK_DIR}:${CONTAINER_JMX_WORK_DIR} -w ${PWD} ${IMAGE} $@
@@ -163,6 +156,11 @@ podman run --rm --name jmeter -e JMETER_CERTIFICATES='/tmp/certificate1.p12:pass
 
 Beware that the certificates path provided must be accessible from within the image - that means, you have to make sure that locally stored certificates are mounted in the container at the appropriate location at runtime.
 
+## GUI Mode via VNC
+
+If the jMeter parameter `-n` (which initiates the jMeter cli-mode) is not given, jMeter is launched in a special VNC-GUI mode. A minimalistic XFCE desktop environment is launched together with jMeter.
+It is possible to connect to this environment with a VNC client via the port 5900.
+
 ## Specifics
 
 The Container image built from the
@@ -191,8 +189,11 @@ sudo podman run --name ${NAME} -i -v ${WORK_DIR}:${WORK_DIR} -w ${WORK_DIR} ${IM
 
 ## Credits
 
-Thanks to https://github.com/hauptmedia/docker-jmeter
-and https://github.com/hhcordero/docker-jmeter-server for providing
-the Dockerfiles that inspired me.   @wilsonmar for contributing detailed instructions. Others
-that tested/reported after version updates.
-https://github.com/justb4/docker-jmeter was the original source repo
+Original Repository cloned from https://github.com/justb4/docker-jmeter
+Original Credits:
+
+> Thanks to https://github.com/hauptmedia/docker-jmeter and https://github.com/hhcordero/docker-jmeter-server for providing the Dockerfiles that inspired me.
+> @wilsonmar for contributing detailed instructions.
+> Others that tested/reported after version updates.
+
+Inspiration for adding GUI-mode with VNC server from https://github.com/guitarrapc/docker-jmeter-gui/tree/master
