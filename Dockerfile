@@ -6,16 +6,16 @@ FROM alpine:3.18
 ARG JMETER_VERSION="5.6"
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
 ARG TZ="Europe/Amsterdam"
-ENV TZ=${TZ} \
-    JMETER_HOME=/opt/apache-jmeter \
-    JMETER_CUSTOM_PLUGINS_FOLDER=/plugins \
-    JMETER_BIN=${JMETER_HOME}/bin \
-    JMETER_DOWNLOAD_URL=https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz \
-    JMETER_CERTIFICATES="" \
-    PATH=$PATH:$JMETER_BIN \
-    DISPLAY=":99" \
-    RESOLUTION="1366x768x24" \
-    PASS="root"
+ENV TZ=${TZ}
+ENV JMETER_HOME=/opt/apache-jmeter
+ENV JMETER_CUSTOM_PLUGINS_FOLDER=/plugins
+ENV JMETER_BIN=${JMETER_HOME}/bin
+ENV JMETER_DOWNLOAD_URL=https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
+ENV JMETER_CERTIFICATES=""
+ENV PATH=$PATH:$JMETER_BIN
+ENV DISPLAY=":99"
+ENV RESOLUTION="1366x768x24"
+ENV PASS="root"
 
 STOPSIGNAL SIGKILL
 
