@@ -1,5 +1,6 @@
 Original Repository cloned from https://github.com/justb4/docker-jmeter
 Patreon of original author: [![Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/justb4)
+Inspiration for GUI-mode from https://github.com/guitarrapc/docker-jmeter-gui/tree/master
 
 # container-jmeter
 
@@ -196,3 +197,4 @@ and https://github.com/hhcordero/docker-jmeter-server for providing
 the Dockerfiles that inspired me.   @wilsonmar for contributing detailed instructions. Others
 that tested/reported after version updates.
 https://github.com/justb4/docker-jmeter was the original source repo
+Inspiration for adding GUI-mode with VNC server from https://github.com/guitarrapc/docker-jmeter-gui/tree/master
