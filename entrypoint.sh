@@ -69,10 +69,9 @@ if [[ $@ != *"-n"* ]]
 then
     echo "gui mode"
     # Execute VNC server and run jMeter
-    nohup /usr/bin/Xvfb ${DISPLAY} -screen 0 ${RESOLUTION} -ac +extension GLX +render -noreset && export DISPLAY=${DISPLAY} > /dev/null 2>&1 &
-    nohup startxfce4 > /dev/null 2>&1 &
-    nohup x11vnc -ncache -xkb -noxrecord -noxfixes -noxdamage -display ${DISPLAY} -forever -bg -nopw -rfbport 5900 -rfbauth /etc/x11vnc.pass > /dev/null 2>&1 &
-#    nohup xrdp > /dev/null 2>&1 &
+    /usr/bin/Xvfb ${DISPLAY} -screen 0 ${RESOLUTION} -ac +extension GLX +render -noreset && export DISPLAY=${DISPLAY} > /dev/null 2>&1 &
+    startxfce4 > /dev/null 2>&1 &
+    x11vnc -ncache -xkb -noxrecord -noxfixes -noxdamage -display ${DISPLAY} -forever -bg -nopw -rfbport 5900 -rfbauth /etc/x11vnc.pass > /dev/null 2>&1 &
     jmeter ${EXTRA_ARGS} $@ -Jjmeter.laf=CrossPlatform > /dev/null 2>&1 &
     echo "started VNC and jMeter, waiting for VPN connection on port 5900"
     tail -f /dev/null
