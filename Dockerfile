@@ -26,7 +26,7 @@ RUN    apk update \
 	&& apk upgrade \
 	&& apk add ca-certificates \
 	&& update-ca-certificates \
-	&& apk add --update openjdk17-jre tzdata curl unzip bash xfce4-terminal xvfb x11vnc xfce4 tini \
+	&& apk add --update openjdk17-jre tzdata curl unzip bash xfce4-terminal xvfb x11vnc xfce4 tini mousepad \
 	&& apk add --no-cache nss \
 	&& rm -rf /var/cache/apk/* \
 	&& mkdir -p /tmp/dependencies \
