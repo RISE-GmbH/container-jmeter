@@ -50,19 +50,11 @@ RUN    mkdir -p /tmp/dependencies \
 	&& curl -L -O --silent --output-dir /tmp/dependencies https://jmeter-plugins.org/files/packages/jpgc-graphs-additional-2.0.zip \
 	&& curl -L -O --silent --output-dir /tmp/dependencies https://jmeter-plugins.org/files/packages/extended-csv-dataset-config-2.0.zip \
 	&& unzip -oq '/tmp/dependencies/*.zip' -d ${JMETER_HOME} \
-#	&& rm -f ${JMETER_HOME}/lib/ext/jmeter-plugins-manager-*.jar ${JMETER_HOME}/lib/cmdrunner-*.jar ${JMETER_HOME}/lib/jmeter-plugins-cmn-jmeter-*.jar \
     && curl -L -O --silent --output-dir ${JMETER_HOME}/lib/ext/ https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-manager/1.10/jmeter-plugins-manager-1.10.jar \
-#	&& curl -L -O --silent --output-dir ${JMETER_HOME}/lib/ext/ https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.3/cmdrunner-2.3.jar \
-#	&& curl -L -O --silent --output-dir ${JMETER_HOME}/lib/ext/ https://repo1.maven.org/maven2/kg/apc/jmeter-plugins-cmn-jmeter/0.7/jmeter-plugins-cmn-jmeter-0.7.jar \
  # cleanup
 	&& rm -rf /tmp/dependencies \
     && python3 /version_cleanup.py /opt/apache-jmeter/lib \
     && python3 /version_cleanup.py /opt/apache-jmeter/lib/ext
-#RUN export common_name=$(ls ${JMETER_HOME}/lib/ext | sed 's/\(.*\)\..*/\1/' | uniq)
-#RUN echo $common_name
-#RUN for file in ${common_name}*.*; do [ "${file}" != "$(ls ${common_name}*.* | sort -Vr | head -1)" ] && rm "${file}"; done
-#RUN export common_name=$(ls ${JMETER_HOME}/lib | sed 's/\(.*\)\..*/\1/' | uniq)
-#RUN for file in ${common_name}*.*; do [ "${file}" != "$(ls ${common_name}*.* | sort -Vr | head -1)" ] && rm "${file}"; done
 
 EXPOSE 5900
 
