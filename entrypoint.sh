@@ -50,12 +50,12 @@ freeMem=`awk '/MemAvailable/ { print int($2/1024) }' /proc/meminfo`
 [[ -z ${JVM_XMS} ]] && JVM_XMS=$(($freeMem/10*8))
 [[ -z ${JVM_XMX} ]] && JVM_XMX=$(($freeMem/10*8))
 
-export JVM_ARGS="-Xmn${JVM_XMN}m -Xms${JVM_XMS}m -Xmx${JVM_XMX}m"
+export HEAP="-Xmn${JVM_XMN}m -Xms${JVM_XMS}m -Xmx${JVM_XMX}m"
 
 # Initiate jMeter startup
 
 echo "START Running Jmeter on `date`"
-echo "JVM_ARGS=${JVM_ARGS}"
+echo "HEAP=${HEAP}"
 echo "jmeter args=$@"
 
 # we must pass the standard JMeter arguments
