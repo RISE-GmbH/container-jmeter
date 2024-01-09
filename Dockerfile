@@ -3,7 +3,7 @@
 # https://github.com/guitarrapc/docker-jmeter-gui/tree/master
 FROM alpine:3.18
 
-ARG JMETER_VERSION="5.6.2"
+ARG JMETER_VERSION="5.6.3"
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
 ARG TZ="Europe/Amsterdam"
 ENV TZ=${TZ}
